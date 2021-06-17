@@ -7,10 +7,12 @@ variable "user" {
     url      = "https://10.74.202.71"
   }
 }
-variable "tenant" {
-    type    = string
-    default = "Infra_As_Code"
-}
+
+#variable "tenant" {
+#    type    = string
+#    default = "Infra_As_Code"
+#}
+
 variable "vrf" {
     type    = string
     default = "VRF1"
