@@ -8,10 +8,10 @@ variable "user" {
   }
 }
 
-#variable "tenant" {
-#    type    = string
-#    default = "Infra_As_Code"
-#}
+variable "tenant" {
+    type    = string
+    default = "Infra_As_Code"
+}
 
 variable "vrf" {
     type    = string
