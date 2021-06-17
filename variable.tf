@@ -2,9 +2,9 @@ variable "user" {
   description = "Login information"
   type        = map
   default     = {
-    username = ""
-    password = ""
-    url      = ""
+    username = "admin"
+    password = "C1sc0123"
+    url      = "10.74.202.71"
   }
 }
 
