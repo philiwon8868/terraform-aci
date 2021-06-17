@@ -4,7 +4,7 @@ variable "user" {
   default     = {
     username = "admin"
     password = "C1sc0123"
-    url      = "10.74.202.71"
+    url      = "https://10.74.202.71"
   }
 }
 
