@@ -8,6 +8,11 @@ variable "user" {
   }
 }
 
+variable "vmm_domain" {
+    type = string
+    default = "uni/vmmp-VMware/dom-vCenter-217"
+}
+
 variable "tenant" {
     type    = string
     default = "Infra_As_Code"
