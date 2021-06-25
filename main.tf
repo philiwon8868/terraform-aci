@@ -293,3 +293,19 @@ resource "aci_connection" "t1-n1" {
         aci_function_node.ServiceGraph[each.value.name].conn_provider_dn
     ]
 }
+
+# Create L4-L7 Service Graph template T2 connection.
+resource "aci_connection" "n1-t2" {
+    for_each = var.Devices
+    l4_l7_service_graph_template_dn = aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].id
+    name                            = "C1"
+    adj_type                        = "L3"
+    conn_dir                        = "provider"
+    conn_type                       = "external"
+    direct_connect                  = "no"
+    unicast_route                   = "yes"
+    relation_vns_rs_abs_connection_conns = [
+        aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].term_cons_dn,
+        aci_function_node.ServiceGraph[each.value.name].conn_consumer_dn
+    ]
+}
