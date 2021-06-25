@@ -109,3 +109,105 @@ resource "aci_epg_to_contract" "terraform_epg_contract" {
     contract_dn        = aci_contract.terraform_contract[each.value.contract].id
     contract_type      = each.value.contract_type
 }
+
+
+# Define the L4-L7 Device inside the tenant.name
+resource "aci_rest" "device" {
+  for_each = var.FW_Device
+  path = "/api/node/mo/uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}.json"
+  payload = <<EOF
+  {
+      "vnsLDevVip":{
+		"attributes":{
+				"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v",
+				"svcType":"FW",
+				"managed":"false",
+				"name":"ASA1000v",
+				"rn":"lDevVip-ASA1000v",
+				"status":"created"
+			     },
+		"children":[
+				{"vnsCDev":{
+					"attributes":{
+							"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces",
+							"name":"Device-Interfaces",
+							"rn":"cDev-Device-Interfaces",
+							"status":"created"
+						     },
+					"children":[
+						    {"vnsCIf":
+								{"attributes":{
+									"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces/cIf-[Inside]",
+									"name":"Inside",
+									"status":"created"
+									},
+								 "children":[{
+									"vnsRsCIfPathAtt":{
+										"attributes":{
+											"tDn":"topology/pod-1/paths-301/pathep-[eth1/1]",
+											"status":"created,modified"},
+										"children":[]}
+									    }]
+								}},
+						    {"vnsCIf":
+								{"attributes":{
+									"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces/cIf-[Outside]",
+									"name":"Outside",
+									"status":"created"
+									},
+								"children":[{
+									"vnsRsCIfPathAtt":{
+										"attributes":{
+											"tDn":"topology/pod-1/paths-301/pathep-[eth1/2]",
+											"status":"created,modified"},
+										"children":[]}
+									   }]
+							        }}
+						 ]}
+  				},
+				{"vnsLIf":{
+					"attributes":{
+						"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/lIf-Inside",
+						"name":"Inside",
+						"encap":"vlan-100",
+						"status":"created,modified",
+						"rn":"lIf-Inside"},
+					"children":[
+							{"vnsRsCIfAttN":{
+								"attributes":{
+									"tDn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces/cIf-[Inside]",
+									"status":"created,modified"},
+								"children":[]}
+							}
+						   ]
+					  }
+				},
+			      	{"vnsLIf":{
+					"attributes":{
+						"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/lIf-Outside",
+						"name":"Outside",
+						"encap":"vlan-200",
+						"status":"created,modified",
+						"rn":"lIf-Outside"},
+					"children":[
+							{"vnsRsCIfAttN":{
+								"attributes":{
+									"tDn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces/cIf-[Outside]",
+									"status":"created,modified"},
+								"children":[]}
+							}
+						   ]
+					}
+				},
+				{"vnsRsALDevToPhysDomP":{
+					"attributes":{
+						"tDn":"uni/phys-phys",
+						"status":"created"},
+					"children":[]
+					}
+				}
+			]
+		}
+}
+EOF
+}
