@@ -1,18 +1,3 @@
-variable "user" {
-  description = "Login information"
-  type        = map
-  default     = {
-    username = "admin"
-    password = "C1sc0123"
-    url      = "https://10.74.202.95"
-  }
-}
-
-variable "vmm_domain" {
-    type = string
-    default = "uni/vmmp-VMware/dom-vCenter-217"
-}
-
 variable "tenant" {
     type    = string
     default = "Infra_As_Code"
