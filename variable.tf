@@ -1,3 +1,7 @@
+variable "user" {
+  type = map(any)
+}
+
 variable "tenant" {
     type    = string
     default = "Infra_As_Code"
