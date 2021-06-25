@@ -122,7 +122,7 @@ resource "aci_rest" "device" {
 				"dn":"uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}",
 				"svcType":"FW",
 				"managed":"false",
-				"name":"{each.value.name},
+				"name":${each.value.name},
 				"rn":"lDevVip-${each.value.name}",
 				"status":"created"
 			     },
