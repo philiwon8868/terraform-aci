@@ -34,8 +34,9 @@ resource "aci_vrf" "terraform_vrf" {
 resource "aci_bridge_domain" "terraform_bd" {
     tenant_dn          = aci_tenant.terraform_tenant.id
     relation_fv_rs_ctx = aci_vrf.terraform_vrf.id
-    description        = "BD Created Using terraform-aci"
-    name               = var.bd
+    description        = "BDs Created Using terraform-aci"
+    for_each           = var.bds
+    name               = each.value.bd_name
 }
 
 # Define an ACI Tenant BD Subnet Resource.
