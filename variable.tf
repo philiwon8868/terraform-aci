@@ -82,17 +82,17 @@ variable "contracts" {
       subject  = "https",
       filter   = "filter_https"
     },
-    contract_sql = {
-      contract = "sql",
-      subject  = "sql",
-      filter   = "filter_sql"
+    contract_icmp = {
+      contract = "icmp",
+      subject  = "icmp",
+      filter   = "filter_icmp"
     }
   }
 }
 variable "ap" {
     description = "Create application profile"
     type        = string
-    default     = "intranet"
+    default     = "3T-App"
 }
 variable "epgs" {
     description = "Create epg"
@@ -100,13 +100,18 @@ variable "epgs" {
     default     = {
         web_epg = {
             epg   = "web",
-            bd    = "prod_bd",
-            encap = "21"
+            bd    = "bd-web",
+            encap = "1020"
+        },
+        app_epg = {
+            epg   = "app",
+            bd    = "bd-app",
+            encap = "1021"
         },
         db_epg = {
             epg   = "db",
-            bd    = "prod_bd",
-            encap = "22"
+            bd    = "bd-db",
+            encap = "1022"
         }
     }
 }
@@ -121,12 +126,12 @@ variable "epg_contracts" {
         },
         terraform_two = {
             epg           = "web_epg",
-            contract      = "contract_sql",
+            contract      = "contract_icmp",
             contract_type = "consumer" 
         },
         terraform_three = {
             epg           = "db_epg",
-            contract      = "contract_sql",
+            contract      = "contract_icmp",
             contract_type = "provider" 
         }
     }
