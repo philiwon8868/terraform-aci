@@ -223,7 +223,7 @@ resource "aci_rest" "inside_vlan" {
 			"dn":"uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}]",
 			"from":"vlan-${each.value.inside_vlan}",
 			"to":"vlan-${each.value.inside_vlan}",
-			"descr":"Interface: ${each.value.inside_interface}"
+			"descr":"Interface: ${each.value.inside_interface}",
 			"rn":"from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}]",
 			"status":"created"
 		             },
@@ -244,7 +244,7 @@ resource "aci_rest" "outside_vlan" {
 			"dn":"uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}]",
 			"from":"vlan-${each.value.outside_vlan}",
 			"to":"vlan-${each.value.outside_vlan}",
-			"descr":"Interface: ${each.value.outside_interface}"
+			"descr":"Interface: ${each.value.outside_interface}",
 			"rn":"from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}]",
 			"status":"created"
 		             },
