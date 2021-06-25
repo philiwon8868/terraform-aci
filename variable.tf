@@ -107,17 +107,17 @@ variable "epg_contracts" {
     type        = map
     default     = {
         terraform_one = {
-            epg           = "web_epg",
+            epg           = "web",
             contract      = "contract_web",
             contract_type = "provider" 
         },
         terraform_two = {
-            epg           = "web_epg",
+            epg           = "web",
             contract      = "contract_icmp",
             contract_type = "consumer" 
         },
         terraform_three = {
-            epg           = "db_epg",
+            epg           = "db",
             contract      = "contract_icmp",
             contract_type = "provider" 
         }
