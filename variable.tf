@@ -22,42 +22,20 @@ variable "vrf" {
     type    = string
     default = "VRF1"
 }
-variable "bd" {
-    type    = string
-    default = "prod_bd"
-}
 
-variable "bd-web" {
-    type    = string
-    default = "bd-web"
-}
-variable "bd-app" {
-    type    = string
-    default = "bd-app"
-}
-variable "bd-db" {
-    type    = string
-    default = "bd-db"
-}
-
-variable "subnet" {
-    type    = string
-    default = "10.4.1.254/24"
-}
-
-variable "subnet-web" {
-    type    = string
-    default = "10.1.1.254/24"
-}
-
-variable "subnet-app" {
-    type    = string
-    default = "10.1.1.254/24"
-}
-
-variable "subnet-db" {
-    type    = string
-    default = "10.3.1.254/24"
+variable "bds" {
+    description = "List of bridge domains to be created"
+    type = map
+    default = {
+      bd_web = {
+        bd_name = "bd-web"
+        subnet  = "10.1.1.254/24"
+      },
+      bd_db = {
+        bd_name = "bd-db"
+        subnet = "10.3.1.254/24"
+      }
+    }
 }
 
 variable "filters" {
@@ -110,7 +88,7 @@ variable "epgs" {
         },
         app_epg = {
             epg   = "app",
-            bd    = "bd-app",
+            bd    = "bd-web",
             encap = "1021"
         },
         db_epg = {
