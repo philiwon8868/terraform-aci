@@ -114,7 +114,7 @@ resource "aci_epg_to_contract" "terraform_epg_contract" {
 # Define the L4-L7 Device inside the tenant.name
 resource "aci_rest" "device" {
   for_each = var.FW_Device
-  path = "/api/node/mo/uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}.json"
+  path = "api/node/mo/uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}.json"
   payload = <<EOF
   {
       "vnsLDevVip":{
