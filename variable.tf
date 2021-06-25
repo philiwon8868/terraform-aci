@@ -12,7 +12,7 @@ variable "tenant" {
 
 variable "vrf" {
     type    = string
-    default = "VRF1"
+    default = "VRF"
 }
 
 variable "bds" {
