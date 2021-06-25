@@ -38,6 +38,14 @@ variable "bds" {
       db = {
         bd_name = "bd-db"
         subnet = "10.3.1.254/24"
+      },
+      inside = {
+        bd_name = "bd-inside"
+        subnet = "1.1.1.1/24"
+      },
+      outside = {
+        bd_name = "bd-outside"
+        subnet = "2.2.2.1/24"
       }
     }
 }
