@@ -266,7 +266,7 @@ resource "aci_l4_l7_service_graph_template" "ServiceGraph" {
 # Create L4-L7 Service Graph Function Node
 resource "aci_function_node" "ServiceGraph" {
     for_each = var.Devices
-    l4_l7_service_graph_template_dn = aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].id
+    l4_l7_service_graph_template_dn = aci_l4_l7_service_graph_template.ServiceGraph[${each.value.name}].id
     name                            = each.value.name
     func_template_type              = "FW_ROUTED"
     func_type                       = "GoTo"
