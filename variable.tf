@@ -68,7 +68,8 @@ variable "filters" {
     filter_icmp = {
       filter   = "icmp",
       entry    = "icmp",
-      protocol = "icmp"
+      protocol = "icmp",
+      port.    = "0"
     }
   }
 }
