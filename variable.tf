@@ -150,6 +150,7 @@ variable "Devices" {
            outside_vlan = "1089"
            phy_domain = "phys"
            phy_vlan_pool = "Phys-Pool"
+           contract = "Con_Web_to_App"
        }
     }
 }
