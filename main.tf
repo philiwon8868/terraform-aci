@@ -217,7 +217,6 @@ resource "aci_rest" "inside_vlan" {
   for_each = var.Devices
   path = "api/node/mo/uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}].json"
   payload = <<EOF
-{
 	{"fvnsEncapBlk":{
 		"attributes":{
 			"dn":"uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}]",
@@ -226,7 +225,6 @@ resource "aci_rest" "inside_vlan" {
 			"rn":"from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}]",
 			"status":"created"},
 		"children":[]}}
-}
 EOF
 }
 
@@ -235,14 +233,16 @@ resource "aci_rest" "outside_vlan" {
   for_each = var.Devices
   path = "api/node/mo/uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}].json"
   payload = <<EOF
-{
 	{"fvnsEncapBlk":{
 		"attributes":{
 			"dn":"uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}]",
-			"from":"vlan-${each.value.outside_vlan}","to":"vlan-${each.value.outside_vlan}",
+			"from":"vlan-${each.value.outside_vlan}",
+			"to":"vlan-${each.value.outside_vlan}",
 			"rn":"from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}]",
-			"status":"created"},
-		"children":[]}}
-}
+			"status":"created"
+		             },
+		"children":[]
+	                }
+	}
 EOF
 }
