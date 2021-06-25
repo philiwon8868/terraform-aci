@@ -113,15 +113,15 @@ resource "aci_epg_to_contract" "terraform_epg_contract" {
 
 # Define the L4-L7 Device inside the tenant.name
 resource "aci_rest" "device" {
-  for_each = var.FW_Device
+  for_each = var.Devices
   path = "api/node/mo/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}.json"
   payload = <<EOF
 {
       "vnsLDevVip":{
 		"attributes":{
 				"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}",
-				"svcType":"FW",
-				"managed":"false",
+				"svcType":${each.value.device_type},
+				"managed":${each.value.managed},
 				"name":${each.value.name},
 				"rn":"lDevVip-${each.value.name}",
 				"status":"created"
@@ -130,35 +130,35 @@ resource "aci_rest" "device" {
 				{"vnsCDev":{
 					"attributes":{
 							"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}",
-							"name":"Device-Interfaces",
-							"rn":"cDev-Device-Interfaces",
+							"name":${each.value.interface_name},
+							"rn":"cDev-${each.value.interface_name}",
 							"status":"created"
 						     },
 					"children":[
 						    {"vnsCIf":
 								{"attributes":{
-									"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[Inside]",
-									"name":"Inside",
+									"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[${each.value.inside_interface}]",
+									"name":${each.value.inside_interface},
 									"status":"created"
 									},
 								 "children":[{
 									"vnsRsCIfPathAtt":{
 										"attributes":{
-											"tDn":"topology/pod-1/paths-301/pathep-[eth1/1]",
+											"tDn":"topology/pod-${each.value.inside_pod}/paths-${each.value.inside_node}/pathep-[eth1/${each.value.inside_eth}]",
 											"status":"created,modified"},
 										"children":[]}
 									    }]
 								}},
 						    {"vnsCIf":
 								{"attributes":{
-									"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[Outside]",
-									"name":"Outside",
+									"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[${each.value.outside_interface}]",
+									"name":"${each.value.outside_interface}",
 									"status":"created"
 									},
 								"children":[{
 									"vnsRsCIfPathAtt":{
 										"attributes":{
-											"tDn":"topology/pod-1/paths-301/pathep-[eth1/2]",
+											"tDn":"topology/pod-${each.value.outside_pod}/paths-${each.value.outside_node}/pathep-[eth1/${each.value.outside_eth}]",
 											"status":"created,modified"},
 										"children":[]}
 									   }]
@@ -167,15 +167,15 @@ resource "aci_rest" "device" {
   				},
 				{"vnsLIf":{
 					"attributes":{
-						"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-Inside",
-						"name":"Inside",
-						"encap":"vlan-100",
+						"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-${each.value.inside_interface}",
+						"name":${each.value.inside_interface},
+						"encap":"vlan-${each.value.inside_vlan}",
 						"status":"created,modified",
-						"rn":"lIf-Inside"},
+						"rn":"lIf-${each.value.inside_interface}"},
 					"children":[
 							{"vnsRsCIfAttN":{
 								"attributes":{
-									"tDn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[Inside]",
+									"tDn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[${each.value.inside_interface}]",
 									"status":"created,modified"},
 								"children":[]}
 							}
@@ -184,15 +184,15 @@ resource "aci_rest" "device" {
 				},
 			      	{"vnsLIf":{
 					"attributes":{
-						"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-${each.value.Outside_interface}",
-						"name":"Outside",
-						"encap":"vlan-200",
+						"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-${each.value.outside_interface}",
+						"name":${each.value.outside_interface},
+						"encap":"vlan-${each.value.outside_vlan}",
 						"status":"created,modified",
-						"rn":"lIf-Outside"},
+						"rn":"lIf-${each.value.outside_interface}"},
 					"children":[
 							{"vnsRsCIfAttN":{
 								"attributes":{
-									"tDn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[Outside]",
+									"tDn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[${each.value.outside_interface}]",
 									"status":"created,modified"},
 								"children":[]}
 							}
