@@ -253,3 +253,12 @@ resource "aci_rest" "outside_vlan" {
   }
   EOF
 }
+
+## Create the L4-L7 Service Graph Template
+resource "aci_l4_l7_service_graph_template" "ServiceGraph" {
+    for_each = var.Devices
+    tenant_dn                         = aci_tenant.terraform_tenant.id
+    name                              = "SG-"${each.value.name)
+    l4_l7_service_graph_template_type = "legacy"
+    ui_template_type                  = "UNSPECIFIED"
+}
