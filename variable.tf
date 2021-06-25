@@ -133,7 +133,7 @@ variable "Devices" {
     description = "L4-L7 Device Definition"
     type = map
     default = {
-       Device1 = {
+       ASA1000v = {
            name = "ASA1000v"
            device_type = "FW"
            managed = "false"
