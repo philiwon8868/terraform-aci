@@ -135,6 +135,8 @@ variable "FW_Device" {
     default = {
        FW1 = {
            name = "ASA1000v"
+           interface_name = "Device-Interfaces"
+         
        }
     }
 }
