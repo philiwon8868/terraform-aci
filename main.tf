@@ -116,20 +116,20 @@ resource "aci_rest" "device" {
   for_each = var.FW_Device
   path = "api/node/mo/uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}.json"
   payload = <<EOF
-  {
+{
       "vnsLDevVip":{
 		"attributes":{
-				"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v",
+				"dn":"uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}",
 				"svcType":"FW",
 				"managed":"false",
-				"name":"ASA1000v",
-				"rn":"lDevVip-ASA1000v",
+				"name":"{each.value.name},
+				"rn":"lDevVip-${each.value.name}",
 				"status":"created"
 			     },
 		"children":[
 				{"vnsCDev":{
 					"attributes":{
-							"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces",
+							"dn":"uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces",
 							"name":"Device-Interfaces",
 							"rn":"cDev-Device-Interfaces",
 							"status":"created"
@@ -137,7 +137,7 @@ resource "aci_rest" "device" {
 					"children":[
 						    {"vnsCIf":
 								{"attributes":{
-									"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces/cIf-[Inside]",
+									"dn":"uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces/cIf-[Inside]",
 									"name":"Inside",
 									"status":"created"
 									},
@@ -151,7 +151,7 @@ resource "aci_rest" "device" {
 								}},
 						    {"vnsCIf":
 								{"attributes":{
-									"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces/cIf-[Outside]",
+									"dn":"uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces/cIf-[Outside]",
 									"name":"Outside",
 									"status":"created"
 									},
@@ -167,7 +167,7 @@ resource "aci_rest" "device" {
   				},
 				{"vnsLIf":{
 					"attributes":{
-						"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/lIf-Inside",
+						"dn":"uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-Inside",
 						"name":"Inside",
 						"encap":"vlan-100",
 						"status":"created,modified",
@@ -175,7 +175,7 @@ resource "aci_rest" "device" {
 					"children":[
 							{"vnsRsCIfAttN":{
 								"attributes":{
-									"tDn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces/cIf-[Inside]",
+									"tDn":"uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces/cIf-[Inside]",
 									"status":"created,modified"},
 								"children":[]}
 							}
@@ -184,7 +184,7 @@ resource "aci_rest" "device" {
 				},
 			      	{"vnsLIf":{
 					"attributes":{
-						"dn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/lIf-Outside",
+						"dn":"uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-Outside",
 						"name":"Outside",
 						"encap":"vlan-200",
 						"status":"created,modified",
@@ -192,7 +192,7 @@ resource "aci_rest" "device" {
 					"children":[
 							{"vnsRsCIfAttN":{
 								"attributes":{
-									"tDn":"uni/tn-Infra_As_Code/lDevVip-ASA1000v/cDev-Device-Interfaces/cIf-[Outside]",
+									"tDn":"uni/${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces/cIf-[Outside]",
 									"status":"created,modified"},
 								"children":[]}
 							}
