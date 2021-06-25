@@ -27,11 +27,15 @@ variable "bds" {
     description = "List of bridge domains to be created"
     type = map
     default = {
-      bd_web = {
+      web = {
         bd_name = "bd-web"
         subnet  = "10.1.1.254/24"
       },
-      bd_db = {
+      app = {
+        bd_name = "bd-web"
+        subnet  = "10.1.1.254/24"
+      },
+      db = {
         bd_name = "bd-db"
         subnet = "10.3.1.254/24"
       }
@@ -81,17 +85,17 @@ variable "epgs" {
     description = "Create epg"
     type        = map
     default     = {
-        web_epg = {
+        web.    = {
             epg   = "web",
             bd    = "bd-web",
             encap = "1020"
         },
-        app_epg = {
+        app     = {
             epg   = "app",
             bd    = "bd-web",
             encap = "1021"
         },
-        db_epg = {
+        db      = {
             epg   = "db",
             bd    = "bd-db",
             encap = "1022"
