@@ -129,7 +129,7 @@ resource "aci_rest" "device" {
 		"children":[
 				{"vnsCDev":{
 					"attributes":{
-							"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces",
+							"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}",
 							"name":"Device-Interfaces",
 							"rn":"cDev-Device-Interfaces",
 							"status":"created"
@@ -137,7 +137,7 @@ resource "aci_rest" "device" {
 					"children":[
 						    {"vnsCIf":
 								{"attributes":{
-									"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces/cIf-[Inside]",
+									"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[Inside]",
 									"name":"Inside",
 									"status":"created"
 									},
@@ -151,7 +151,7 @@ resource "aci_rest" "device" {
 								}},
 						    {"vnsCIf":
 								{"attributes":{
-									"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces/cIf-[Outside]",
+									"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[Outside]",
 									"name":"Outside",
 									"status":"created"
 									},
@@ -175,7 +175,7 @@ resource "aci_rest" "device" {
 					"children":[
 							{"vnsRsCIfAttN":{
 								"attributes":{
-									"tDn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces/cIf-[Inside]",
+									"tDn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[Inside]",
 									"status":"created,modified"},
 								"children":[]}
 							}
@@ -192,7 +192,7 @@ resource "aci_rest" "device" {
 					"children":[
 							{"vnsRsCIfAttN":{
 								"attributes":{
-									"tDn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-Device-Interfaces/cIf-[Outside]",
+									"tDn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/cDev-${each.value.interface_name}/cIf-[Outside]",
 									"status":"created,modified"},
 								"children":[]}
 							}
