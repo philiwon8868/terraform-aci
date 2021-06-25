@@ -309,3 +309,16 @@ resource "aci_connection" "n1-t2" {
         aci_function_node.ServiceGraph[each.value.name].conn_consumer_dn
     ]
 }
+
+# Create L4-L7 Logical Device Context
+resource "aci_logical_device_context" "ServiceGraph" {
+    for_each = var.Devices
+    tenant_dn                          = aci_tenant.terraform_tenant.id
+    ctrct_name_or_lbl                  = each.value.contract
+    graph_name_or_lbl                  = format ("%s%s","SG-",each.value.name)
+    node_name_or_lbl                   = aci_function_node.ServiceGraph[each.value.name].name
+    relation_vns_rs_l_dev_ctx_to_l_dev = "${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}"
+#    relation_vns_rs_l_dev_ctx_to_l_dev = aci_rest.device[each.value.name].id
+
+}
+
