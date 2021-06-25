@@ -136,7 +136,17 @@ variable "FW_Device" {
        FW1 = {
            name = "ASA1000v-1"
            interface_name = "Device-Interfaces"
-         
+           inside_interface = "Inside"
+           outside_interface = "Outside"
+           inside_pod = "1"
+           outside_pod = "1"
+           inside_node = "301"
+           outside_node = "301"
+           inside_eth = "8"
+           outside_eth = "8"
+           inside_vlan = "1088"
+           outside_vlan = "1089"
+           phy_domain = "phys"
        }
     }
 }
