@@ -310,7 +310,7 @@ resource "aci_connection" "n1-t2" {
     ]
 }
 
-# Create L4-L7 Logical Device Context
+# Create L4-L7 Logical Device Selection Policies / Logical Device Context
 resource "aci_logical_device_context" "ServiceGraph" {
     for_each = var.Devices
     tenant_dn                          = aci_tenant.terraform_tenant.id
@@ -318,7 +318,34 @@ resource "aci_logical_device_context" "ServiceGraph" {
     graph_name_or_lbl                  = format ("%s%s","SG-",each.value.name)
     node_name_or_lbl                   = aci_function_node.ServiceGraph[each.value.name].name
     relation_vns_rs_l_dev_ctx_to_l_dev = "${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}"
-#    relation_vns_rs_l_dev_ctx_to_l_dev = aci_rest.device[each.value.name].id
+}
 
+# Create L4-L7 Logical Device Interface Contexts.
+resource "aci_logical_interface_context" "consumer" {
+  for_each = var.Devices
+	logical_device_context_dn        = aci_logical_device_context.ServiceGraph[each.value.name].id
+	conn_name_or_lbl                 = "consumer"
+	l3_dest                          = "yes"
+	permit_log                       = "no"
+  relation_vns_rs_l_if_ctx_to_l_if = "${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-cl-${each.value.name}"
+  relation_vns_rs_l_if_ctx_to_bd   = each.value.outside_bd
+#  relation_vns_rs_l_if_ctx_to_svc_redirect_pol = aci_service_redirect_policy.pbr[each.value.pbr_name].id
+  depends_on = [
+    aci_rest.device,
+  ]
+}
+
+resource "aci_logical_interface_context" "provider" {
+  for_each = var.Devices
+	logical_device_context_dn        = aci_logical_device_context.ServiceGraph[each.value.name].id
+	conn_name_or_lbl                 = "provider"
+	l3_dest                          = "yes"
+	permit_log                       = "no"
+  relation_vns_rs_l_if_ctx_to_l_if = "${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-cl-${each.value.name}"
+  relation_vns_rs_l_if_ctx_to_bd   = each.value.inside_bd
+ # relation_vns_rs_l_if_ctx_to_svc_redirect_pol = aci_service_redirect_policy.pbr[each.value.pbr_name].id
+  depends_on = [
+    aci_rest.device,
+  ]
 }
 
