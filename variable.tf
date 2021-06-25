@@ -54,7 +54,7 @@ variable "filters" {
   description = "Create filters with these names and ports"
   type        = map
   default     = {
-    filter_https = {
+    filter_http = {
       filter   = "http",
       entry    = "http",
       protocol = "tcp",
@@ -72,10 +72,10 @@ variable "contracts" {
   description = "Create contracts with these filters"
   type        = map
   default     = {
-    contract_web = {
-      contract = "web",
-      subject  = "https",
-      filter   = "filter_https"
+    contract_http = {
+      contract = "http",
+      subject  = "http",
+      filter   = "filter_http"
     },
     contract_icmp = {
       contract = "icmp",
@@ -115,18 +115,23 @@ variable "epg_contracts" {
     type        = map
     default     = {
         terraform_one = {
-            epg           = "web",
-            contract      = "contract_web",
+            epg           = "app",
+            contract      = "contract_http",
             contract_type = "provider" 
         },
         terraform_two = {
-            epg           = "web",
+            epg           = "app",
             contract      = "contract_icmp",
             contract_type = "consumer" 
         },
         terraform_three = {
             epg           = "db",
             contract      = "contract_icmp",
+            contract_type = "provider" 
+        },
+        terraform_4 = {
+            epg           = "db",
+            contract      = "contract_http",
             contract_type = "provider" 
         }
     }
