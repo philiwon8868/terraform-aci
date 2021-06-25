@@ -2,9 +2,12 @@ variable "user" {
   type = map(any)
 }
 
+variable "vmm_domain" {
+  type = map(any)
+}
+
 variable "tenant" {
-    type    = string
-    default = "Infra_As_Code"
+  type = map(any)
 }
 
 variable "vrf" {
