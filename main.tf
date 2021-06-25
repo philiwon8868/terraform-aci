@@ -184,7 +184,7 @@ resource "aci_rest" "device" {
 				},
 			      	{"vnsLIf":{
 					"attributes":{
-						"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-Outside",
+						"dn":"${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-${each.value.Outside_interface}",
 						"name":"Outside",
 						"encap":"vlan-200",
 						"status":"created,modified",
@@ -201,7 +201,7 @@ resource "aci_rest" "device" {
 				},
 				{"vnsRsALDevToPhysDomP":{
 					"attributes":{
-						"tDn":"uni/phys-phys",
+						"tDn":"uni/phys-${each.value.phy_domain}",
 						"status":"created"},
 					"children":[]
 					}
