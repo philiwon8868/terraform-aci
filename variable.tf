@@ -134,7 +134,7 @@ variable "FW_Device" {
     type = map
     default = {
        FW1 = {
-           name = "ASA1000v"
+           name = "ASA1000v-1"
            interface_name = "Device-Interfaces"
          
        }
