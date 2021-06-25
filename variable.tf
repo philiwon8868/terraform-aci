@@ -128,3 +128,14 @@ variable "epg_contracts" {
         }
     }
 }
+
+variable "FW_Device" {
+    description = "Firewall L4-L7 Device Definition:
+    type = map
+    default = {
+       FW1 = {
+           name = "ASA1000v"
+       }
+    }
+}
+    
