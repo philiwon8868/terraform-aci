@@ -85,7 +85,7 @@ variable "epgs" {
     description = "Create epg"
     type        = map
     default     = {
-        web.    = {
+        web     = {
             epg   = "web",
             bd    = "bd-web",
             encap = "1020"
