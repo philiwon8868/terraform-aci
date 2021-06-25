@@ -43,7 +43,8 @@ resource "aci_bridge_domain" "terraform_bd" {
 resource "aci_subnet" "terraform_bd_subnet" {
     parent_dn   = aci_bridge_domain.terraform_bd.id
     description = "Subnet Created Using terraform-aci"
-    ip          = var.subnet
+    for_each    = var.bds
+    ip          = each.value.subnet
 }
 
 # Define an ACI Filter Resource.
