@@ -41,7 +41,7 @@ resource "aci_bridge_domain" "terraform_bd" {
 
 # Define an ACI Tenant BD Subnet Resource.
 resource "aci_subnet" "terraform_bd_subnet" {
-    parent_dn   = aci_bridge_domain.terraform_bd.id
+    parent_dn   = aci_bridge_domain.terraform_bd[each.key]
     description = "Subnet Created Using terraform-aci"
     for_each    = var.bds
     ip          = each.value.subnet
@@ -94,7 +94,7 @@ resource "aci_application_epg" "terraform_epg" {
     for_each                = var.epgs
     application_profile_dn  = aci_application_profile.terraform_ap.id
     name                    = each.value.epg
-    relation_fv_rs_bd       = aci_bridge_domain.terraform_bd.id
+    relation_fv_rs_bd       = aci_bridge_domain.terraform_bd[each.key]
     description             = "EPG Created Using terraform-aci"
 }
 
