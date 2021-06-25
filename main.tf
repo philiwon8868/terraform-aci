@@ -271,9 +271,25 @@ resource "aci_function_node" "ServiceGraph" {
     func_template_type              = "FW_ROUTED"
     func_type                       = "GoTo"
     is_copy                         = "no"
-    managed                         = each.value.managed
+    managed                         = "no"
     routing_mode                    = "Redirect"
     sequence_number                 = "0"
     share_encap                     = "no"
     relation_vns_rs_node_to_l_dev   = "${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}"
+}
+
+# Create L4-L7 Service Graph template T1 connection.
+resource "aci_connection" "t1-n1" {
+    for_each = var.Devices
+    l4_l7_service_graph_template_dn = aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].id
+    name           = "C2"
+    adj_type       = "L3"
+    conn_dir       = "provider"
+    conn_type      = "external"
+    direct_connect = "no"
+    unicast_route  = "yes"
+    relation_vns_rs_abs_connection_conns = [
+        aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].term_prov_dn,
+        aci_function_node.ServiceGraph[each.value.name].conn_provider_dn
+    ]
 }
