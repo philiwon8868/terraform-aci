@@ -221,12 +221,11 @@ resource "aci_rest" "inside_vlan" {
 	{"fvnsEncapBlk":{
 		"attributes":{
 			"dn":"uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}]",
-			"from":"vlan-${each.value.inside_vlan}","to":"vlan-${each.value.inside_vlan}",
+			"from":"vlan-${each.value.inside_vlan}",
+			"to":"vlan-${each.value.inside_vlan}",
 			"rn":"from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}]",
 			"status":"created"},
 		"children":[]}}
-
-
 }
 EOF
 }
@@ -244,8 +243,6 @@ resource "aci_rest" "outside_vlan" {
 			"rn":"from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}]",
 			"status":"created"},
 		"children":[]}}
-
-
 }
 EOF
 }
