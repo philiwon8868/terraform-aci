@@ -275,5 +275,5 @@ resource "aci_function_node" "ServiceGraph" {
     routing_mode                    = "Redirect"
     sequence_number                 = "0"
     share_encap                     = "no"
-    relation_vns_rs_node_to_l_dev   = aci_tenant.terraform_tenant.id/lDevVip-${each.value.name}
+    relation_vns_rs_node_to_l_dev   = "${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}"
 }
