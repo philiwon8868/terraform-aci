@@ -271,7 +271,7 @@ resource "aci_function_node" "ServiceGraph" {
     func_template_type              = "FW_ROUTED"
     func_type                       = "GoTo"
     is_copy                         = "no"
-    managed                         = each.value.managed
+    managed                         = "no"
     routing_mode                    = "Redirect"
     sequence_number                 = "0"
     share_encap                     = "no"
