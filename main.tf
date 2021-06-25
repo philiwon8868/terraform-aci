@@ -20,7 +20,7 @@ provider "aci" {
 # Define an ACI Tenant Resource.
 resource "aci_tenant" "terraform_tenant" {
     name        = var.tenant
-    description = "Created by terraform-aci, Philip."
+    description = "3-Tiers by terraform-aci, Philip."
 }
 
 # Define an ACI Tenant VRF Resource.
