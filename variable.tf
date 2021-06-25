@@ -149,6 +149,7 @@ variable "Devices" {
            inside_vlan = "1088"
            outside_vlan = "1089"
            phy_domain = "phys"
+           phy_vlan_pool = "Phys_Pool"
        }
     }
 }
