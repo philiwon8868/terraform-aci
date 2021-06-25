@@ -129,12 +129,14 @@ variable "epg_contracts" {
     }
 }
 
-variable "FW_Device" {
-    description = "Firewall L4-L7 Device Definition"
+variable "Devices" {
+    description = "L4-L7 Device Definition"
     type = map
     default = {
-       FW1 = {
-           name = "ASA1000v-1"
+       Device1 = {
+           name = "ASA1000v"
+           device_type = "FW"
+           managed = "false"
            interface_name = "Device-Interfaces"
            inside_interface = "Inside"
            outside_interface = "Outside"
