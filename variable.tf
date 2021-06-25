@@ -21,25 +21,54 @@ variable "bd" {
     type    = string
     default = "prod_bd"
 }
+
+variable "bd-web" {
+    type    = string
+    default = "bd-web"
+}
+variable "bd-app" {
+    type    = string
+    default = "bd-app"
+}
+variable "bd-db" {
+    type    = string
+    default = "bd-db"
+}
+
 variable "subnet" {
     type    = string
     default = "10.4.1.254/24"
 }
+
+variable "subnet-web" {
+    type    = string
+    default = "10.1.1.254/24"
+}
+
+variable "subnet-app" {
+    type    = string
+    default = "10.1.1.254/24"
+}
+
+variable "subnet-db" {
+    type    = string
+    default = "10.3.1.254/24"
+}
+
 variable "filters" {
   description = "Create filters with these names and ports"
   type        = map
   default     = {
     filter_https = {
-      filter   = "https",
-      entry    = "https",
+      filter   = "http",
+      entry    = "http",
       protocol = "tcp",
-      port     = "443"
+      port     = "80"
     },
-    filter_sql = {
-      filter   = "sql",
-      entry    = "sql",
-      protocol = "tcp",
-      port     = "1433"
+    filter_icmp = {
+      filter   = "icmp",
+      entry    = "icmp",
+      protocol = "icmp"
     }
   }
 }
