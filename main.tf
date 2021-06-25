@@ -211,3 +211,41 @@ resource "aci_rest" "device" {
 }
 EOF
 }
+
+## adding inside VLAN for interfaces of L4-L7 Devices to VLAN Pools
+resource "aci_rest" "device" {
+  for_each = var.Devices
+  path = "api/node/mo/uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}].json"
+  payload = <<EOF
+{
+	{"fvnsEncapBlk":{
+		"attributes":{
+			"dn":"uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}]",
+			"from":"vlan-${each.value.inside_vlan}","to":"vlan-${each.value.inside_vlan}",
+			"rn":"from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}]",
+			"status":"created"},
+		"children":[]}}
+
+
+}
+EOF
+}
+
+## adding outside VLAN for interfaces of L4-L7 Devices to VLAN Pools
+resource "aci_rest" "device" {
+  for_each = var.Devices
+  path = "api/node/mo/uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}].json"
+  payload = <<EOF
+{
+	{"fvnsEncapBlk":{
+		"attributes":{
+			"dn":"uni/infra/vlanns-[${each.value.phy_vlan_pool}]-dynamic/from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}]",
+			"from":"vlan-${each.value.outside_vlan}","to":"vlan-${each.value.outside_vlan}",
+			"rn":"from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}]",
+			"status":"created"},
+		"children":[]}}
+
+
+}
+EOF
+}
