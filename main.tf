@@ -100,7 +100,7 @@ resource "aci_application_epg" "terraform_epg" {
 resource "aci_epg_to_domain" "terraform_epg_domain" {
     for_each              = var.epgs
     application_epg_dn    = aci_application_epg.terraform_epg[each.key].id
-    tdn   = "uni/vmmp-VMware/dom-vCenter-DVS"
+    tdn   = var.vmm_domain
 }
 
 # Associate the EPGs with the contrats
