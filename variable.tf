@@ -117,7 +117,7 @@ variable "epg_contracts" {
         terraform_one = {
             epg           = "app",
             contract      = "contract_http",
-            contract_type = "provider" 
+            contract_type = "consumer" 
         },
         terraform_two = {
             epg           = "app",
