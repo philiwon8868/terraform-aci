@@ -62,7 +62,7 @@ variable "filters" {
       filter   = "any",
       entry    = "any",
       protocol = "unspecified",
-      port.    = "unspecified"
+      port     = "unspecified"
     }
   }
 }
