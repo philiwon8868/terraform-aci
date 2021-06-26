@@ -22,7 +22,8 @@ data "vsphere_datacenter" "dc" {
 }
 
 data "vsphere_network" "network" {
-  name = "${aci_tenant.terraform_tenant.id}|${var.ap}|Web"
+  for_each = var.epgs
+  name = "${aci_tenant.terraform_tenant.id}|${var.ap}|${each.value.epg}"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
