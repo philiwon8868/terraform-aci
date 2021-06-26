@@ -186,9 +186,11 @@ variable "PBRs" {
     default = {
       Inside_PBR = {
         name = "Inside_PBR"
+        ipsla = "IPSLA"
       }
       Outside_PBR = {
         name = "Outside_PBR"
+        ipsla = "IPSLA"
       }
     }
 }
