@@ -61,7 +61,8 @@ variable "filters" {
     filter_any = {
       filter   = "any",
       entry    = "any",
-      protocol = "UNSPECIFIED"
+      protocol = "unspecified",
+      port.    = "unspecified"
     }
   }
 }
