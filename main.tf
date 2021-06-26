@@ -410,7 +410,10 @@ resource "aci_service_redirect_policy" "pbr" {
   for_each = var.PBRs
   tenant_dn = aci_tenant.terraform_tenant.id
   name = each.value.name
-  dest_type = "L3"
+  dest_type = each.value.dest_type
+  max_threshold_percent = each.value.max_threshold_percent
+  description = each.value.description
+  threshold_enable = each.value.threshold_enable
   relation_vns_rs_ipsla_monitoring_pol = "${aci_tenant.terraform_tenant.id}/ipslaMonitoringPol-${each.value.ipsla}"
 #  relation_vns_rs_ipsla_monitoring_pol = aci_rest.ipsla[each.value.name].id
   depends_on = [
