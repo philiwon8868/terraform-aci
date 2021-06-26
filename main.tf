@@ -392,6 +392,6 @@ resource "aci_service_redirect_policy" "pbr" {
   tenant_dn = aci_tenant.terraform_tenant.id
   name = each.value.name
   dest_type = "L3"
-#  relation_vns_rs_ipsla_monitoring_pol = "${data.aci_tenant.this.id}/ipslaMonitoringPol-${each.value.ipsla_name}"
+  relation_vns_rs_ipsla_monitoring_pol = "${aci_tenant.terraform_tenant.id}/ipslaMonitoringPol-${each.value.ipsla}"
 #  relation_vns_rs_ipsla_monitoring_pol = aci_rest.ipsla[each.value.name].id
 }
