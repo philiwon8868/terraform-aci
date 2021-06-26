@@ -420,3 +420,12 @@ resource "aci_service_redirect_policy" "pbr" {
     aci_rest.ipsla,
   ]
 }
+
+resource "aci_destination_of_redirected_traffic" "pbr" {
+  for_each = var.PBRs
+  service_redirect_policy_dn = aci_service_redirect_policy.pbr[each.value.name].id
+  ip = each.value.ip
+  mac = each.value.mac
+  relation_vns_rs_redirect_health_group = "${aci_tenant.terraform_tenant.id}/svcCont/redirectHealthGroup-${each.value.redirect_health}"
+  #relation_vns_rs_redirect_health_group = aci_rest.rh[each.value.name].id
+}
