@@ -99,17 +99,17 @@ variable "epgs" {
         web     = {
             epg   = "web",
             bd    = "bd-web",
-            encap = "1020"
+#            encap = "1020"
         },
         app     = {
             epg   = "app",
-            bd    = "bd-web",
-            encap = "1021"
+            bd    = "bd-app",
+#            encap = "1021"
         },
         db      = {
             epg   = "db",
             bd    = "bd-db",
-            encap = "1022"
+#            encap = "1022"
         }
     }
 }
