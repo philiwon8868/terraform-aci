@@ -22,7 +22,7 @@ data "vsphere_datacenter" "dc" {
 }
 
 data "vsphere_network" "network" {
-  name = "${aci_tenant.terraform_tenant.id}|Application|Web"
+  name = "${aci_tenant.terraform_tenant.id}|${var.ap}|Web"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
