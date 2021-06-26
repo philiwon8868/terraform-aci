@@ -21,6 +21,11 @@ data "vsphere_datacenter" "dc" {
   name = var.vSphere_Site2.datacenter
 }
 
+data "vsphere_resource_pool" "pool" {
+  name          = var.vSphere_Site2.resource
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+
 data "vsphere_network" "network" {
   for_each = var.epgs
   name = "${var.tenant.name}|${var.ap}|${each.value.epg}"
