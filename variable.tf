@@ -33,11 +33,11 @@ variable "bds" {
       },
       inside = {
         bd_name = "bd-inside"
-        subnet = "1.1.1.1/24"
+        subnet = "3.3.3.1/24"
       },
       outside = {
         bd_name = "bd-outside"
-        subnet = "2.2.2.1/24"
+        subnet = "4.4.4.1/24"
       }
     }
 }
