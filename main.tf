@@ -329,7 +329,7 @@ resource "aci_logical_interface_context" "consumer" {
 	l3_dest                          = "yes"
 	permit_log                       = "no"
   relation_vns_rs_l_if_ctx_to_l_if = "${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}/lIf-${each.value.outside_interface}"
-  relation_vns_rs_l_if_ctx_to_bd   = each.value.outside_bd
+  relation_vns_rs_l_if_ctx_to_bd   = "${aci_tenant.terraform_tenant.id}/"BD-${each.value.outside_bd}"
 #  relation_vns_rs_l_if_ctx_to_svc_redirect_pol = aci_service_redirect_policy.pbr[each.value.pbr_name].id
   depends_on = [
     aci_rest.device,
