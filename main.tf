@@ -359,6 +359,25 @@ resource "aci_contract_subject" "subj" {
   relation_vz_rs_subj_graph_att = aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].id
 }
 
+# Create IP SLA Monitoring Policy
+resource "aci_rest" "ipsla" {
+    for_each = var.PBRs
+    path    = "api/node/mo/${aci_tenant.terraform_tenant.id}/ipslaMonitoringPol-${each.value.ipsla}.json"
+    payload = <<EOF
+{
+	"fvIPSLAMonitoringPol": {
+		"attributes": {
+			"dn": "${aci_tenant.terraform_tenant.id}/ipslaMonitoringPol-${each.value.ipsla}",
+			"name": "${each.value.ipsla}",
+			"rn": "ipslaMonitoringPol-${each.value.ipsla}",
+			"status": "created"
+		},
+		"children": []
+	}
+}
+EOF  
+}
+
 resource "aci_service_redirect_policy" "pbr" {
   for_each = var.PBRs
   tenant_dn = aci_tenant.terraform_tenant.id
