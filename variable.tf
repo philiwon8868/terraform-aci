@@ -24,8 +24,8 @@ variable "bds" {
         subnet  = "10.4.1.254/24"
       },
       app = {
-        bd_name = "bd-web"
-        subnet  = "10.4.1.254/24"
+        bd_name = "bd-db"
+        subnet  = "10.5.1.254/24"
       },
       db = {
         bd_name = "bd-db"
