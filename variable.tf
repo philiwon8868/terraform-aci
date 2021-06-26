@@ -98,18 +98,15 @@ variable "epgs" {
     default     = {
         web     = {
             epg   = "web",
-            bd    = "bd-web",
-#            encap = "1020"
+            bd    = "bd-web"
         },
         app     = {
             epg   = "app",
-            bd    = "bd-app",
-#            encap = "1021"
+            bd    = "bd-app"
         },
         db      = {
             epg   = "db",
-            bd    = "bd-db",
-#            encap = "1022"
+            bd    = "bd-db"
         }
     }
 }
