@@ -192,6 +192,8 @@ variable "PBRs" {
         max_threshold_percent   = "100"
         description             = "Inside PBR Policy"
         threshold_enable        = "yes"
+        ip = "3.3.3.254"
+        mac = "00:50:56:98:4c:52"
       }
       Outside_PBR = {
         name = "Outside_PBR"
@@ -201,6 +203,8 @@ variable "PBRs" {
         max_threshold_percent   = "100"
         description             = "Outside PBR Policy"
         threshold_enable        = "yes"
+        ip = "4.4.4.254"
+        mac = "00:50:56:98:dc:9e"
       }
     }
 }
