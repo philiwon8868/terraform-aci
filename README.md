@@ -12,7 +12,7 @@ In this example, we have 3 End-Point Groups (EPGs): "Web", "App" and "DB"
 
 Between "App" and "DB", there are 2 Contracts - one is for granting access of TCP 80 and the other is for granting ICMP
 
-Between "Web" and "App", we have provisioned a 2-Arm Routed Mode Unmanaged Mode Firewall Service Graph with Policy Based Redirect (PBR). The Firewall in this example is a Cisco Virtual ASA Firewall, however, it can be any Firewall.
+Between "Web" and "App", we have provisioned a 2-Arm Routed Mode Unmanaged Firewall Service Graph with Policy Based Redirect (PBR). The Firewall in this example is a Cisco Virtual ASA Firewall, however, it can be any Firewall.
 
 The code section composes of mainly 2 files:
 1. main.tf 
