@@ -187,10 +187,12 @@ variable "PBRs" {
       Inside_PBR = {
         name = "Inside_PBR"
         ipsla = "IPSLA_Inside"
+        redirect_health = "Redirect_Inside"
       }
       Outside_PBR = {
         name = "Outside_PBR"
         ipsla = "IPSLA_Outside"
+        redirect_health = "Redirect_Outside"
       }
     }
 }
