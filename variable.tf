@@ -188,11 +188,19 @@ variable "PBRs" {
         name = "Inside_PBR"
         ipsla = "IPSLA_Inside"
         redirect_health = "Redirect_Inside"
+        dest_type = "L3"
+        max_threshold_percent   = "100"
+        description             = "Inside PBR Policy"
+        threshold_enable        = "yes"
       }
       Outside_PBR = {
         name = "Outside_PBR"
         ipsla = "IPSLA_Outside"
         redirect_health = "Redirect_Outside"
+        dest_type = "L3"
+        max_threshold_percent   = "100"
+        description             = "Outside PBR Policy"
+        threshold_enable        = "yes"
       }
     }
 }
