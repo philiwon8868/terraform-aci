@@ -27,6 +27,17 @@ data "vsphere_network" "network" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
+resource "vsphere_virtual_machine" "vm" {
+  for_each = var.epgs
+  name             = "${each.value.epg}"
+  network_interface {
+    network_id = "${data.vsphere_network.network[each.value.epg].id}"
+  }
+  depends_on = [
+  aci_epg_to_domain.terraform_epg_domain,
+  ]	
+}
+
 # Configure the provider with your Cisco APIC credentials.
 provider "aci" {
   username = var.user.username
