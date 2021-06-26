@@ -23,7 +23,7 @@ data "vsphere_datacenter" "dc" {
 
 data "vsphere_network" "network" {
   for_each = var.epgs
-  name = "${aci_tenant.terraform_tenant.id}|${var.ap}|${each.value.epg}"
+  name = "${var.tenant.name}|${var.ap}|${each.value.epg}"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
