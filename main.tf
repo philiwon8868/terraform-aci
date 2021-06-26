@@ -356,3 +356,12 @@ resource "aci_contract_subject" "subj" {
   name = "${each.value.contract}"
   relation_vz_rs_subj_graph_att = aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].id
 }
+
+resource "aci_service_redirect_policy" "pbr" {
+  for_each = var.PBR
+  tenant_dn = aci_tenant.terraform_tenant.id
+  name = each.value.name
+  dest_type = "L3"
+#  relation_vns_rs_ipsla_monitoring_pol = "${data.aci_tenant.this.id}/ipslaMonitoringPol-${each.value.ipsla_name}"
+#  relation_vns_rs_ipsla_monitoring_pol = aci_rest.ipsla[each.value.name].id
+}
