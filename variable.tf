@@ -6,6 +6,10 @@ variable "vmm_domain" {
   type = map(any)
 }
 
+variable "vSphere_Site2" {
+    type = map(any)
+}
+
 variable "tenant" {
   type = map(any)
 }
@@ -13,6 +17,10 @@ variable "tenant" {
 variable "vrf" {
     type    = string
     default = "VRF"
+}
+
+variable "vSphere_Site2" {
+    type = map(any)
 }
 
 variable "bds" {
