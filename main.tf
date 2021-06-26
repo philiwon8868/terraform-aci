@@ -358,7 +358,7 @@ resource "aci_contract_subject" "subj" {
 }
 
 resource "aci_service_redirect_policy" "pbr" {
-  for_each = var.PBR
+  for_each = var.PBRs
   tenant_dn = aci_tenant.terraform_tenant.id
   name = each.value.name
   dest_type = "L3"
