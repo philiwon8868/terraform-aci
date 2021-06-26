@@ -29,7 +29,7 @@ variable "bds" {
       },
       db = {
         bd_name = "bd-db"
-        subnet = "10.5.1.254/24"
+        subnet = "10.6.1.254/24"
       },
       inside = {
         bd_name = "bd-inside"
