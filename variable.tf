@@ -57,6 +57,11 @@ variable "filters" {
       entry    = "icmp",
       protocol = "icmp",
       port     = "0"
+    },
+    filter_any = {
+      filter   = "any",
+      entry    = "any",
+      protocol = "UNSPECIFIED"
     }
   }
 }
@@ -73,6 +78,11 @@ variable "contracts" {
       contract = "icmp",
       subject  = "icmp",
       filter   = "filter_icmp"
+    },
+    contract_SG_ASA1000v = {
+      contract = "SG_ASA1000v",
+      subject  = "SG_ASA1000v",
+      filter   = "filter_any"
     }
   }
 }
