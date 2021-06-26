@@ -294,6 +294,9 @@ resource "aci_connection" "t1-n1" {
         aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].term_prov_dn,
         aci_function_node.ServiceGraph[each.value.name].conn_provider_dn
     ]
+    depends_on = [
+    aci_rest.device,
+    ]
 }
 
 # Create L4-L7 Service Graph template T2 connection.
@@ -310,6 +313,9 @@ resource "aci_connection" "n1-t2" {
         aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].term_cons_dn,
         aci_function_node.ServiceGraph[each.value.name].conn_consumer_dn
     ]
+    depends_on = [
+    aci_rest.device,
+    ]
 }
 
 # Create L4-L7 Logical Device Selection Policies / Logical Device Context
@@ -321,6 +327,9 @@ resource "aci_logical_device_context" "ServiceGraph" {
     node_name_or_lbl                   = aci_function_node.ServiceGraph[each.value.name].name
     #relation_vns_rs_l_dev_ctx_to_l_dev = "${aci_tenant.terraform_tenant.id}/lDevVip-${each.value.name}"
     relation_vns_rs_l_dev_ctx_to_l_dev = aci_rest.device[each.value.name].id
+    depends_on = [
+    aci_rest.device,
+    ]
 }
 
 # Create L4-L7 Logical Device Interface Contexts.
