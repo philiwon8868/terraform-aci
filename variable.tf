@@ -19,10 +19,6 @@ variable "vrf" {
     default = "VRF"
 }
 
-variable "vSphere_Site2" {
-    type = map(any)
-}
-
 variable "bds" {
     description = "List of bridge domains to be created"
     type = map
