@@ -224,6 +224,7 @@ resource "aci_rest" "inside_vlan" {
 			"from":"vlan-${each.value.inside_vlan}",
 			"to":"vlan-${each.value.inside_vlan}",
 			"descr":"Interface: ${each.value.inside_interface}",
+			"allocMode":"static",
 			"rn":"from-[vlan-${each.value.inside_vlan}]-to-[vlan-${each.value.inside_vlan}]",
 			"status":"created"
 		             },
@@ -245,6 +246,7 @@ resource "aci_rest" "outside_vlan" {
 			"from":"vlan-${each.value.outside_vlan}",
 			"to":"vlan-${each.value.outside_vlan}",
 			"descr":"Interface: ${each.value.outside_interface}",
+			"allocMode":"static",
 			"rn":"from-[vlan-${each.value.outside_vlan}]-to-[vlan-${each.value.outside_vlan}]",
 			"status":"created"
 		             },
