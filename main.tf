@@ -36,6 +36,7 @@ resource "vsphere_virtual_machine" "vm" {
   for_each = var.epgs
   name             = "${each.value.epg}"
   resource_pool_id = data.vsphere_resource_pool.pool.id
+  datastore_id     = data.vsphere_datastore.datastore.id
   network_interface {
     network_id = "${data.vsphere_network.network[each.value.epg].id}"
   }
