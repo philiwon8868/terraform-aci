@@ -21,15 +21,15 @@ variable "bds" {
     default = {
       web = {
         bd_name = "bd-web"
-        subnet  = "10.1.1.254/24"
+        subnet  = "10.4.1.254/24"
       },
       app = {
         bd_name = "bd-web"
-        subnet  = "10.1.1.254/24"
+        subnet  = "10.4.1.254/24"
       },
       db = {
         bd_name = "bd-db"
-        subnet = "10.3.1.254/24"
+        subnet = "10.5.1.254/24"
       },
       inside = {
         bd_name = "bd-inside"
