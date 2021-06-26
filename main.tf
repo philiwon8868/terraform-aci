@@ -387,6 +387,25 @@ resource "aci_rest" "ipsla" {
 EOF  
 }
 
+# Create Redirect Health Group
+resource "aci_rest" "rh" {
+    for_each = var.PBRs
+    path    = "api/node/mo/${aci_tenant.terraform_tenant.id}/svcCont/redirectHealthGroup-${each.value.redirect_health}.json"
+    payload = <<EOF
+{
+	"vnsRedirectHealthGroup": {
+		"attributes": {
+			"dn": "${aci_tenant.terraform_tenant.id}/svcCont/redirectHealthGroup-${each.value.redirect_health}",
+			"name": "${each.value.redirect_health}",
+			"rn": "redirectHealthGroup-${each.value.redirect_health}",
+			"status": "created"
+		},
+		"children": []
+	}
+}
+EOF
+}
+
 resource "aci_service_redirect_policy" "pbr" {
   for_each = var.PBRs
   tenant_dn = aci_tenant.terraform_tenant.id
@@ -394,4 +413,7 @@ resource "aci_service_redirect_policy" "pbr" {
   dest_type = "L3"
   relation_vns_rs_ipsla_monitoring_pol = "${aci_tenant.terraform_tenant.id}/ipslaMonitoringPol-${each.value.ipsla}"
 #  relation_vns_rs_ipsla_monitoring_pol = aci_rest.ipsla[each.value.name].id
+  depends_on = [
+    aci_rest.ipsla,
+  ]
 }
