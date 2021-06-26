@@ -329,6 +329,7 @@ resource "aci_logical_device_context" "ServiceGraph" {
     #relation_vns_rs_l_dev_ctx_to_l_dev = aci_rest.device[each.value.name].id
     depends_on = [
     aci_rest.device,
+    aci_service_redirect_policy.pbr,
     ]
 }
 
@@ -428,4 +429,7 @@ resource "aci_destination_of_redirected_traffic" "pbr" {
   mac = each.value.mac
   relation_vns_rs_redirect_health_group = "${aci_tenant.terraform_tenant.id}/svcCont/redirectHealthGroup-${each.value.redirect_health}"
   #relation_vns_rs_redirect_health_group = aci_rest.rh[each.value.name].id
+  depends_on = [
+    aci_rest.rh,
+  ]
 }
