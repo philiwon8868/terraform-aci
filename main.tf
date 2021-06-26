@@ -353,6 +353,6 @@ resource "aci_logical_interface_context" "provider" {
 resource "aci_contract_subject" "subj" {
   for_each = var.Devices
   contract_dn = "${aci_tenant.terraform_tenant.id}/brc-${each.value.contract}"
-  name = "${each.value.name}-subject"
+  name = "${each.value.contract}"
   relation_vz_rs_subj_graph_att = aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].id
 }
