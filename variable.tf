@@ -180,3 +180,15 @@ variable "Devices" {
     }
 }
     
+variable "PBRs" {
+    description = "List of PBRs to be defined"
+    type = map
+    default = {
+      Inside_PBR = {
+        name = "Inside_PBR"
+      }
+      Outside_PBR = {
+        name = "Outside_PBR"
+      }
+    }
+}
