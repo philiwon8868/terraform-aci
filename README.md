@@ -14,11 +14,15 @@ Between "App" and "DB", there are 2 Contracts - one is for granting access of TC
 
 Between "Web" and "App", we have provisioned a 2-Arm Routed Mode Unmanaged Firewall Service Graph with Policy Based Redirect (PBR). The Firewall in this example is a Cisco Virtual ASA Firewall, however, it can be any Firewall.
 
+![image](https://user-images.githubusercontent.com/8743281/123568965-10e16400-d7f8-11eb-9678-8d1c2fd02100.png)
+
 The code section composes of mainly 2 files:
 1. main.tf 
 2. variable.tf
 
-Basically all variables are defined in the file "variable.tf" except for APIC login credential which is defined in "Variables" section of the Terraform Cloud environment.
+Basically all variables are defined in the file "variable.tf" except for APIC login credential, APIC IP address, the VMM domain name and the target ACI Tenant, which are defined in "Variables" section of the Terraform Cloud environment.
+![image](https://user-images.githubusercontent.com/8743281/123569650-505c8000-d7f9-11eb-95e0-52588e2f06ae.png)
+
 
 We leverage on Terraform Cloud with an on-premise agent to deploy the application on our lab in a private cloud environment. By simply changing the APIC Controller IP address and logon credentials, we can deploy the sample application to any ACI site.
 
