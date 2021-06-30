@@ -24,15 +24,15 @@ variable "bds" {
     type = map
     default = {
       web = {
-        bd_name = "bd-web"
+        bd_name = "web"
         subnet  = "10.4.1.254/24"
       },
       app = {
-        bd_name = "bd-app"
+        bd_name = "app"
         subnet  = "10.5.1.254/24"
       },
       db = {
-        bd_name = "bd-db"
+        bd_name = "db"
         subnet = "10.6.1.254/24"
       },
       inside = {
@@ -102,15 +102,15 @@ variable "epgs" {
     default     = {
         web     = {
             epg   = "web",
-            bd    = "bd-web"
+            bd    = "web"
         },
         app     = {
             epg   = "app",
-            bd    = "bd-app"
+            bd    = "app"
         },
         db      = {
             epg   = "db",
-            bd    = "bd-db"
+            bd    = "db"
         }
     }
 }
