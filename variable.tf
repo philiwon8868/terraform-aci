@@ -39,6 +39,15 @@ variable "vm" {
         netmask = "24"
         gateway = "10.5.1.254"
         domain = "cisco.com"
+      },
+      db = {
+        name = "db"
+        cpu = 8
+        memory = 4096
+        ip = "10.6.1.188"
+        netmask = "24"
+        gateway = "10.6.1.254"
+        domain = "cisco.com"
       }
     }
 }
