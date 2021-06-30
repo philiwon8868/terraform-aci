@@ -35,6 +35,9 @@ data "vsphere_network" "network" {
   for_each = var.epgs
   name = "${var.tenant.name}|${var.ap}|${each.value.epg}"
   datacenter_id = data.vsphere_datacenter.dc.id
+  depends_on = [
+     aci_epg_to_domain.terraform_epg_domain,
+  ]	
 }
 
 #resource "vsphere_virtual_machine" "vm" {
