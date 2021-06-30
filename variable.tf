@@ -30,6 +30,7 @@ variable "vm" {
         netmask = "24"
         gateway = "10.4.1.254"
         domain = "cisco.com"
+        folder = "Terraform VMs"
       },
       app = {
         name = "app"
@@ -39,6 +40,7 @@ variable "vm" {
         netmask = "24"
         gateway = "10.5.1.254"
         domain = "cisco.com"
+        folder = "Terraform VMs"
       },
       db = {
         name = "db"
@@ -48,6 +50,7 @@ variable "vm" {
         netmask = "24"
         gateway = "10.6.1.254"
         domain = "cisco.com"
+        folder = "Terraform VMs"
       }
     }
 }
