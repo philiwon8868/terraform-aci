@@ -377,7 +377,7 @@ resource "aci_logical_device_context" "ServiceGraph" {
     ]
 }
 
-# Create L4-L7 Logical Device Interface Contexts.
+# Create L4-L7 Logical Device Interface Contexts for consumer
 resource "aci_logical_interface_context" "consumer" {
   for_each = var.Devices
 	logical_device_context_dn        = aci_logical_device_context.ServiceGraph[each.value.name].id
@@ -388,11 +388,12 @@ resource "aci_logical_interface_context" "consumer" {
   relation_vns_rs_l_if_ctx_to_bd   = "${aci_tenant.terraform_tenant.id}/BD-${each.value.outside_bd}"
   relation_vns_rs_l_if_ctx_to_svc_redirect_pol = aci_service_redirect_policy.pbr[each.value.outside_pbr].id
   depends_on = [
-    aci_rest.device,
-    aci_service_redirect_policy.pbr,
+    aci_rest.device, # wait until the device has been created
+    aci_service_redirect_policy.pbr, # wait until the PBRs have been created
   ]
 }
 
+# Create L4-L7 Logical Device Interface Contexts for provider
 resource "aci_logical_interface_context" "provider" {
   for_each = var.Devices
 	logical_device_context_dn        = aci_logical_device_context.ServiceGraph[each.value.name].id
@@ -408,6 +409,7 @@ resource "aci_logical_interface_context" "provider" {
   ]
 }
 
+# Associate subject to Service Graph
 resource "aci_contract_subject" "subj" {
   for_each = var.Devices
   contract_dn = "${aci_tenant.terraform_tenant.id}/brc-${each.value.contract}"
@@ -415,7 +417,7 @@ resource "aci_contract_subject" "subj" {
   relation_vz_rs_subj_graph_att = aci_l4_l7_service_graph_template.ServiceGraph[each.value.name].id
 }
 
-# Create IP SLA Monitoring Policy
+# Create IP SLA Monitoring Policy - Using REST-API call to APIC controller
 resource "aci_rest" "ipsla" {
     for_each = var.PBRs
     path    = "api/node/mo/${aci_tenant.terraform_tenant.id}/ipslaMonitoringPol-${each.value.ipsla}.json"
@@ -434,7 +436,7 @@ resource "aci_rest" "ipsla" {
 EOF  
 }
 
-# Create Redirect Health Group
+# Create Redirect Health Group for PBRs - Using REST-API call to APIC controller
 resource "aci_rest" "rh" {
     for_each = var.PBRs
     path    = "api/node/mo/${aci_tenant.terraform_tenant.id}/svcCont/redirectHealthGroup-${each.value.redirect_health}.json"
@@ -453,6 +455,7 @@ resource "aci_rest" "rh" {
 EOF
 }
 
+# Associate IPSLA monitoring policy to the PBRs
 resource "aci_service_redirect_policy" "pbr" {
   for_each = var.PBRs
   tenant_dn = aci_tenant.terraform_tenant.id
@@ -462,20 +465,19 @@ resource "aci_service_redirect_policy" "pbr" {
   description = each.value.description
   threshold_enable = each.value.threshold_enable
   relation_vns_rs_ipsla_monitoring_pol = "${aci_tenant.terraform_tenant.id}/ipslaMonitoringPol-${each.value.ipsla}"
-#  relation_vns_rs_ipsla_monitoring_pol = aci_rest.ipsla[each.value.name].id
-  depends_on = [
+  depends_on = [ #wait until IPSLA has been completed
     aci_rest.ipsla,
   ]
 }
 
+# Associate Redirect Health Group to the PBRs
 resource "aci_destination_of_redirected_traffic" "pbr" {
   for_each = var.PBRs
   service_redirect_policy_dn = aci_service_redirect_policy.pbr[each.value.name].id
   ip = each.value.ip
   mac = each.value.mac
   relation_vns_rs_redirect_health_group = "${aci_tenant.terraform_tenant.id}/svcCont/redirectHealthGroup-${each.value.redirect_health}"
-  #relation_vns_rs_redirect_health_group = aci_rest.rh[each.value.name].id
-  depends_on = [
+  depends_on = [ #wait until Redirect Health Group has been completed
     aci_rest.rh,
   ]
 }
