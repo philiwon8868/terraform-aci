@@ -31,6 +31,11 @@ data "vsphere_datastore" "datastore" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
+data "vsphere_virtual_machine" "template" {
+  name          = "VM-Template"
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+
 data "vsphere_network" "network" {
   for_each = var.epgs
   name = "${var.tenant.name}|${var.ap}|${each.value.epg}"
