@@ -38,7 +38,7 @@ Basically all variables are defined in the file "variable.tf" except for APIC lo
 
 Modify **variable.tf** to include the parameters for APIC login credentials, the target ACI tenant name and the VMM domain name.
 
-All variables in the sample, including the **"Devices"** (for the Service Appliance0 and the **"PBRs"**, are self-explanatory and may be modified to cater for self environment. However, there is a cross-reference of 2 parameters for them, which are highlighted below:
+All variables in the sample, including the **"Devices"** (for the Service Appliance) and the **"PBRs"**, are self-explanatory and may be modified to cater for one's environment. However, there is a cross-reference of 2 parameters for them, which are highlighted below:
 
 variable **"Devices"** {
 ```
