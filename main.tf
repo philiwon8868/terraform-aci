@@ -46,12 +46,12 @@ data "vsphere_network" "network" {
 }
 
 resource "vsphere_virtual_machine" "vm" {
-  for_each = var.epgs
-  name             = "${each.value.epg}-vm"
+  for_each = var.vm
+  name             = "${each.value.name}-vm"
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
-  num_cpus = 2
-  memory   = 4096
+  num_cpus = each.value.cpu
+  memory   = each.value.memory
   wait_for_guest_net_timeout = 0
   wait_for_guest_ip_timeout  = 0
   guest_id = data.vsphere_virtual_machine.template.guest_id
@@ -72,31 +72,23 @@ resource "vsphere_virtual_machine" "vm" {
 
     customize {
       linux_options {
-        host_name = "${each.value.epg}-vm"
-        domain    = "test.internal"
+        host_name = "${each.value.name}-vm"
+        domain    = each.value.domain
       }
 
       network_interface {
-        ipv4_address = "10.4.1.111"
-        ipv4_netmask = 24
+        ipv4_address = each.value.ip
+        ipv4_netmask = each.value.netmask
       }
 
-      ipv4_gateway = "10.4.1.254"
+      ipv4_gateway = each.value.gateway
     }
   }
+  depends_on = [
+     aci_epg_to_domain.terraform_epg_domain,
+  ]
 }
-#resource "vsphere_virtual_machine" "vm" {
-#  for_each = var.epgs
-#  name             = "${each.value.epg}"
-#  resource_pool_id = data.vsphere_resource_pool.pool.id
-#  datastore_id     = data.vsphere_datastore.datastore.id
-#  network_interface {
-#    network_id = "${data.vsphere_network.network[each.value.epg].id}"
-#  }
-#  depends_on = [
-#  aci_epg_to_domain.terraform_epg_domain,
-#  ]	
-#}
+
 
 # Configure the provider with your Cisco APIC credentials.
 provider "aci" {
