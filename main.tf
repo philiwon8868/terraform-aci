@@ -6,6 +6,53 @@ terraform {
   }
 }
 
+# vSphere
+provider "vsphere" {
+  user           = var.vSphere_Site2.admin
+  password       = var.vSphere_Site2.password
+  vsphere_server = var.vSphere_Site2.server 
+
+  # If you have a self-signed cert
+  allow_unverified_ssl = true
+}
+
+# vSphere DC
+data "vsphere_datacenter" "dc" {
+  name = var.vSphere_Site2.datacenter
+}
+
+data "vsphere_resource_pool" "pool" {
+  name          = var.vSphere_Site2.resource
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+
+data "vsphere_datastore" "datastore" {
+  name          = var.vSphere_Site2.datastore
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+
+data "vsphere_network" "network" {
+  for_each = var.epgs
+  name = "${var.tenant.name}|${var.ap}|${each.value.epg}"
+  datacenter_id = data.vsphere_datacenter.dc.id
+  depends_on = [
+     aci_epg_to_domain.terraform_epg_domain,
+  ]	
+}
+
+#resource "vsphere_virtual_machine" "vm" {
+#  for_each = var.epgs
+#  name             = "${each.value.epg}"
+#  resource_pool_id = data.vsphere_resource_pool.pool.id
+#  datastore_id     = data.vsphere_datastore.datastore.id
+#  network_interface {
+#    network_id = "${data.vsphere_network.network[each.value.epg].id}"
+#  }
+#  depends_on = [
+#  aci_epg_to_domain.terraform_epg_domain,
+#  ]	
+#}
+
 # Configure the provider with your Cisco APIC credentials.
 provider "aci" {
   username = var.user.username
