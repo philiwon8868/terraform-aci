@@ -54,6 +54,7 @@ resource "vsphere_virtual_machine" "vm" {
   memory   = each.value.memory
   wait_for_guest_net_timeout = 0
   wait_for_guest_ip_timeout  = 0
+  folder = each.value.folder
   guest_id = data.vsphere_virtual_machine.template.guest_id
 
 
