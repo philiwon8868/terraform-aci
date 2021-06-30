@@ -10,7 +10,7 @@ terraform {
 provider "vsphere" {
   user           = var.vSphere_Site2.admin
   password       = var.vSphere_Site2.password
-  vsphere_server = var.vSphere_Site2.server
+  vsphere_server = var.vSphere_Site2.server 
 
   # If you have a self-signed cert
   allow_unverified_ssl = true
