@@ -27,7 +27,7 @@ variable "vm" {
         cpu = 2
         memory = 2048
         ip = "10.4.1.188"
-        netmast = "24"
+        netmask = "24"
         gateway = "10.4.1.254"
         domain = "cisco.com"
       },
@@ -36,7 +36,7 @@ variable "vm" {
         cpu = 4
         memory = 4096
         ip = "10.5.1.188"
-        netmast = "24"
+        netmask = "24"
         gateway = "10.5.1.254"
         domain = "cisco.com"
       }
