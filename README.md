@@ -1,8 +1,10 @@
-# terraform-aci
+# terraform-aci-vm
 
-Sample Terraform Cloud Integration with Cisco ACI Network.
+Sample Terraform Cloud Integration with Cisco ACI Network 
 
-This project is inspired by another project: https://github.com/christung16/terraform-mso-aci. It is to provide another working sample for those who would like to leverage on ACI's Terraform integration to experience the power of "Infrastructure As Code" - how to provision an ACI application network with a coding approach using Terraform HCL. This project utilize Terraform ACI integration only to provision the infrastructure on the overlay network policies, the L4-L7 Service Appliance and its associated PBR policies. In future revision, it may be extended to cover the underlay network and virtual compute infrastructure. 
+This project is inspired by another project: https://github.com/christung16/terraform-mso-aci. It is to provide another working sample for those who would like to leverage on ACI's Terraform integration to experience the power of "Infrastructure As Code" - how to provision an ACI application network with a coding approach using Terraform HCL. This project utilize Terraform ACI integration only to provision the infrastructure on the overlay network policies, the L4-L7 Service Appliance and its associated PBR policies. **It will also clone VMs and attach to the Virtual Portgroups associated with ACI EPGs**.
+
+In future revision, it may be extended to cover the underlay network. 
 
 ![image](https://user-images.githubusercontent.com/8743281/123520075-80b0fb00-d6e1-11eb-8ec5-909ccd8cfbcc.png)
 
