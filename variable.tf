@@ -19,6 +19,30 @@ variable "vrf" {
     default = "VRF"
 }
 
+variable "vm" {
+    type = map
+    default = {
+      web = {
+        name = "web"
+        cpu = 2
+        memory = 2048
+        ip = "10.4.1.188"
+        netmast = "24"
+        gateway = "10.4.1.254"
+        domain = "cisco.com"
+      },
+      app = {
+        name = "app"
+        cpu = 4
+        memory = 4096
+        ip = "10.5.1.188"
+        netmast = "24"
+        gateway = "10.5.1.254"
+        domain = "cisco.com"
+      }
+    }
+}
+
 variable "bds" {
     description = "List of bridge domains to be created"
     type = map
