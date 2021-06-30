@@ -108,7 +108,7 @@ variable **"PBRs"** {
 ## Usage
 
 *To provision:*
- * Execute with usual *terraform init*, *terraform plan* and *terraform deploy*
+ * Execute with usual *terraform init*, *terraform plan* and *terraform apply*
 
 *To destroy:*
  * Destroy the deployment with *terraform destroy* command.
