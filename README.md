@@ -107,6 +107,96 @@ variable **"PBRs"** {
     }
 }
 ```
+
+## What is NEW? (Compared to terraform-aci)
+
+Added a new variable section to automatically clone Linux VM from a VM template named "**VM-Template**" and associate them to the respective EPGs:
+
+variable "**vm**" {
+```
+  type = map
+    default = {
+      web = {
+        name = "web"
+        cpu = 2
+        memory = 2048
+        ip = "10.4.1.188"
+        netmask = "24"
+        gateway = "10.4.1.254"
+        domain = "cisco.com"
+      },
+      app = {
+        name = "app"
+        cpu = 4
+        memory = 4096
+        ip = "10.5.1.188"
+        netmask = "24"
+        gateway = "10.5.1.254"
+        domain = "cisco.com"
+      },
+      db = {
+        name = "db"
+        cpu = 8
+        memory = 4096
+        ip = "10.6.1.188"
+        netmask = "24"
+        gateway = "10.6.1.254"
+        domain = "cisco.com"
+      }
+    }
+```
+}
+
+**Please make sure the name of vm matches the name of the EPG**.
+
+In the **main.tf** file, there is also a new resource section to provision the VM on vCenter and it has a dependency on ACI VMM domain association.
+
+resource "vsphere_virtual_machine" "**vm**" {
+```
+  for_each = var.vm
+  name             = "${each.value.name}-vm"
+  resource_pool_id = data.vsphere_resource_pool.pool.id
+  datastore_id     = data.vsphere_datastore.datastore.id
+  num_cpus = each.value.cpu
+  memory   = each.value.memory
+  wait_for_guest_net_timeout = 0
+  wait_for_guest_ip_timeout  = 0
+  guest_id = data.vsphere_virtual_machine.template.guest_id
+
+
+  disk {
+    label = "disk0"
+    size = data.vsphere_virtual_machine.template.disks.0.size
+  }
+
+  network_interface {
+    network_id   = data.vsphere_network.network[each.value.name].id
+    adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
+  }
+
+  clone {
+    template_uuid = data.vsphere_virtual_machine.template.id
+
+    customize {
+      linux_options {
+        host_name = "${each.value.name}-vm"
+        domain    = each.value.domain
+      }
+
+      network_interface {
+        ipv4_address = each.value.ip
+        ipv4_netmask = each.value.netmask
+      }
+
+      ipv4_gateway = each.value.gateway
+    }
+  }
+  depends_on = [
+     aci_epg_to_domain.terraform_epg_domain,
+  ]
+```
+}
+
 ## Usage
 
 *To provision:*
