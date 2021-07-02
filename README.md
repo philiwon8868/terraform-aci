@@ -1,6 +1,6 @@
 # terraform-aci
 
-Sample Terraform Cloud Integration with Cisco ACI Network.
+Sample [Terraform Cloud](https://www.terraform.io/cloud) Integration with [Cisco ACI Network](https://www.cisco.com/go/aci).
 
 This project is inspired by another project: https://github.com/christung16/terraform-mso-aci. It is to provide another working sample for those who would like to leverage on ACI's Terraform integration to experience the power of "Infrastructure As Code" - how to provision an ACI application network with a coding approach using Terraform HCL. This project utilize Terraform ACI integration only to provision the infrastructure on the overlay network policies, the L4-L7 Service Appliance and its associated PBR policies. In future revision, it may be extended to cover the underlay network and virtual compute infrastructure. 
 
@@ -20,7 +20,7 @@ The code will provision the followings onto an on-premise ACI private cloud envi
 
 ## Pre-requisites
 
-The repository is originally developed to be triggered by a Terraform Cloud account to execute planning, cost estimation and then deployment. Therefore, the login credentials to APIC controller as well as such parameters as the target ACI tenant name are defined in "Variables" section of the Terraform Cloud environment. If the code is to be tested in a private Terraform environment, one may have to manually include these parameters in the variable file.
+The repository is originally developed to be triggered by a [Terraform Cloud](https://www.terraform.io/cloud) account to execute planning, cost estimation and then deployment. Therefore, the login credentials to APIC controller as well as such parameters as the target ACI tenant name are defined in "Variables" section of the Terraform Cloud environment. If the code is to be tested in a private Terraform environment, one may have to manually include these parameters in the variable file.
 
 ## Requirements
 Name | Version
@@ -33,7 +33,7 @@ Name | Version
 aci | >= 0.4.1
 
 ## Compatibility
-This sample is developed and tested with Cisco ACI 5.2(1g) and Terraform Cloud 1.0.1. However, it is expected to work with Cisco ACI >=4.2 and terraform >=0.13.
+This sample is developed and tested with Cisco ACI 5.2(1g) and [Terraform Cloud](https://www.terraform.io/cloud) 1.0.1. However, it is expected to work with Cisco ACI >=4.2 and terraform >=0.13.
 
 ## Use Case Description
 
