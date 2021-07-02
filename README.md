@@ -22,6 +22,19 @@ The code will provision the followings onto an on-premise ACI private cloud envi
 
 The repository is originally developed to be triggered by a Terraform Cloud account to execute planning, cost estimation and then deployment. Therefore, the login credentials to APIC controller as well as such parameters as the target ACI tenant name are defined in "Variables" section of the Terraform Cloud environment. If the code is to be tested in a private Terraform environment, one may have to manually include these parameters in the variable file.
 
+## Requirements
+Name | Version
+---- | -------
+[terraform]("https://www.terraform.io/downloads.html")| >= 0.13
+
+## Providers
+Name | Version
+---- | -------
+aci | >= 0.4.1
+
+## Compatibility
+This sample is developed and tested with Cisco ACI 5.2(1g) and Terraform Cloud 1.0.1. However, it is expected to work with Cisco ACI >=4.2 and terraform >=0.13.
+
 ## Use Case Description
 
 3-Tier application composing of Web, App and Database Tiers with 2-armed mode Service Graph between Web-Tier and App-Tier is a very typical application profile. This sample serves as a quick reference to create all the necessary components on APIC with Terraform HCL. More complicated applicatioon profiles can be derived from this sample.
@@ -112,6 +125,10 @@ variable **"PBRs"** {
 
 *To destroy:*
  * Destroy the deployment with *terraform destroy* command.
+
+## Next Project
+
+After the deployment, one may find the virtual portgroups provisioned in the VMM domain for the 3 EPGs. One may need to manually associate these virtual portgroups to the testing VMs. In the upcoming project named "**terraform-aci-vm**", the testing VMs can be specified in the HCL, automatically provisioned and associated with their corresponding EPG's virtual portgroups. 
  
 ## Credits and references
 
