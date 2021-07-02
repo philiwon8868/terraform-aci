@@ -25,7 +25,7 @@ The repository is originally developed to be triggered by a Terraform Cloud acco
 ## Requirements
 Name | Version
 ---- | -------
-[terraform]("https://www.terraform.io/downloads.html")| >= 0.13
+[terraform](https://www.terraform.io/downloads.html)| >= 0.13
 
 ## Providers
 Name | Version
